@@ -31,7 +31,7 @@ void chip8_init_graphics() {
   for (int i = 0; i < 80; i++)
     memory[i] = FONT_SET[i];
 
-  memset(display, 0, sizeof(uint8_t) * DISPLAY_SIZE);
+  memset(display, 0, 1 * sizeof(display));
 
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
     fprintf(stderr, "Error initiating the graphics.\n%s", SDL_GetError());
@@ -63,7 +63,7 @@ void chip8_manage_events(bool *running) {
       *running = false;
       break;
     default:
-      printf("");
+      break;
     }
   }
 }

@@ -1,4 +1,5 @@
 #include "chip8.h"
+#include <getopt.h>
 
 static void usage() {
   fprintf(stderr, "Usage: chip8 [-d] rom\n");
@@ -20,12 +21,14 @@ int chip8_load_rom(char *path) {
 
 int main(int argc, char *argv[]) {
   bool debug_mode_enabled = false;
+  int opt;
+  int rom_size;
+  bool running = true;
   chip8_init_memory();
   chip8_init_stack();
   chip8_init_regs();
   chip8_init_graphics();
 
-  int opt;
   while ((opt = getopt(argc, argv, "d")) != -1) {
     switch (opt) {
     case 'd':
@@ -41,8 +44,8 @@ int main(int argc, char *argv[]) {
   if (optind >= argc)
     usage(); // missing rom
 
-  int rom_size = chip8_load_rom(argv[optind]);
-  bool running = true;
+  rom_size = chip8_load_rom(argv[optind]);
+  (void)rom_size;
 
   while (running) {
     if (debug_mode_enabled) {

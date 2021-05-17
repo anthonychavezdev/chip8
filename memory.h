@@ -7,6 +7,7 @@
 #include <string.h> // for memset
 
 #define MEM_SIZE 0x1000 // Chip8's memory is 4096 bytes.
+#define STACK_SIZE 48
 
 extern uint8_t memory[MEM_SIZE];
 extern uint16_t stack[48];

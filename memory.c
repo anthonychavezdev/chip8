@@ -1,10 +1,10 @@
 #include "memory.h"
 
 uint8_t memory[MEM_SIZE];
-uint16_t stack[48];
+uint16_t stack[STACK_SIZE];
 
-void chip8_init_memory() { memset(memory, 0x0, sizeof(uint8_t) * MEM_SIZE); }
-void chip8_init_stack() { memset(stack, 0x0, sizeof(uint8_t) * 48); }
+void chip8_init_memory() { memset(memory, 0x0, 1 * sizeof(memory)); }
+void chip8_init_stack() { memset(stack, 0x0, 1 * sizeof(stack)); }
 
 void chip8_dump_memory(uint8_t *memory) {
   for (size_t i = 0; i < MEM_SIZE; i++) {
