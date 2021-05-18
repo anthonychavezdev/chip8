@@ -1,3 +1,6 @@
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
+
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 #include <unistd.h>
@@ -27,3 +30,5 @@ void chip8_manage_events(bool *running);
 void chip8_clear_screen();
 void chip8_draw_screen();
 void chip8_destory_graphics();
+
+#endif

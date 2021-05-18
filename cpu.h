@@ -1,5 +1,5 @@
-#ifndef REGISTERS_H
-#define REGISTERS_H
+#ifndef CPU_H
+#define CPU_H
 
 #include <stdint.h>
 #include <string.h> // for memset
