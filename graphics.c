@@ -63,6 +63,7 @@ void chip8_manage_events(bool *running) {
       *running = false;
       break;
     default:
+      chip8_process_input(&event);
       break;
     }
   }

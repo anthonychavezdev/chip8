@@ -153,16 +153,28 @@ void chip8_execute_Dxyn(int reg1, int reg2, int n) {
   cpu.pc += 2;
 }
 
-void chip8_execute_Ex9e(int reg) { cpu.pc += 4; }
+void chip8_execute_Ex9e(int reg) {
+  int index = cpu.V[reg];
+  cpu.pc += (keys[index] == true) ? 4 : 2;
+}
 
-void chip8_execute_Exa1(int reg) { cpu.pc += 4; }
+void chip8_execute_Exa1(int reg) {
+  int index = cpu.V[reg];
+  cpu.pc += (keys[index] == false) ? 4 : 2;
+}
 
 void chip8_execute_Fx07(int reg) {
   cpu.V[reg] = cpu.dt;
   cpu.pc += 2;
 }
 
-void chip8_execute_Fx0a(int reg) { cpu.pc += 2; }
+void chip8_execute_Fx0a(int reg) {
+  for (int i = 0; i < NUM_KEYS; i++)
+    if (keys[i] == true)
+      cpu.V[reg] = keys[i];
+
+  cpu.pc += 2;
+}
 
 void chip8_execute_Fx15(int reg) {
   cpu.dt = cpu.V[reg];
@@ -188,16 +200,16 @@ void chip8_execute_Fx33(int reg) {
   uint8_t num = cpu.V[reg]; // gets the number from the register
   uint8_t digits[3];        // buffer in which we will store the reversed number
   uint8_t counter = 0;
-  printf("num = %d\n", cpu.V[reg]);
   while (num > 0) {
     uint8_t mod = num % 10; // grab last digit
     digits[counter] = mod;
     num /= 10; // Throw away the last digit.
     counter++;
   }
-  for (uint8_t i = 0; i < counter; i++) {
-    memory[cpu.I] = digits[i];
-    cpu.I++;
+  uint16_t index = cpu.I;
+  for (int i = counter - 1; i >= 0; --i) {
+    memory[index] = digits[i];
+    index++;
   }
   cpu.pc += 2;
 }
@@ -218,7 +230,7 @@ void chip8_execute_Fx65(int reg) {
   cpu.pc += 2;
 }
 
-void chip8_decode_opcode(uint16_t opcode, bool debug) {
+static void chip8_decode_opcode(uint16_t opcode, bool debug) {
   if (debug)
     printf("pc: %x %d\n", cpu.pc, cpu.pc);
   switch (opcode & 0xF000) {
@@ -360,7 +372,7 @@ void chip8_decode_opcode(uint16_t opcode, bool debug) {
       printf("RND %d, %d\n", (opcode & 0x0F00) >> 8, opcode % 0x00FF);
     break;
   case opcode_Dxyn:
-    /* SDL_Delay(50); */
+    /* SDL_Delay(500); */
     chip8_execute_Dxyn((opcode & 0x0F00) >> 8, (opcode & 0x00F0) >> 4,
                        opcode & 0x000F);
     if (debug) {
@@ -437,7 +449,7 @@ void chip8_decode_opcode(uint16_t opcode, bool debug) {
     break;
   }
 }
-void chip8_decode_opcode_debug(uint16_t opcode) {
+static void chip8_decode_opcode_debug(uint16_t opcode) {
   chip8_decode_opcode(opcode, true);
 }
 

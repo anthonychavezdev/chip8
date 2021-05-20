@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include "memory.h"
+#include "input.h"
 
 
 #define DISPLAY_WIDTH 64

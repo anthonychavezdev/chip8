@@ -1,5 +1,6 @@
 #include "chip8.h"
 #include <getopt.h>
+#include <stdbool.h>
 
 static void usage() {
   fprintf(stderr, "Usage: chip8 [-d] rom\n");
@@ -52,8 +53,7 @@ int main(int argc, char *argv[]) {
       chip8_dump_memory(memory);
       chip8_print_insn();
     }
-    /* chip8_start_instruction_cycle(); */
-    chip8_print_insn();
+    chip8_start_instruction_cycle();
     chip8_update_timers();
     chip8_manage_events(&running);
   }

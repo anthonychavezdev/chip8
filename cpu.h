@@ -67,78 +67,146 @@ extern struct cpu cpu;
 void chip8_init_regs();
 void chip8_update_timers();
 
-// CLS: Clears screen
+/**
+ * CLS: Clears screen
+ */
 void chip8_execute_00E0();
-// RET: Return from a subroutine
+/**
+ * RET: Return from a subroutine
+ */
 void chip8_execute_00EE();
-// JP addr: Jump to location nnn
+/**
+ * JP addr: Jump to location nnn
+ */
 void chip8_execute_1nnn(uint16_t addr);
-// CALL addr: Call subroutine at nnn
+/**
+ * CALL addr: Call subroutine at nnn
+ */
 void chip8_execute_2nnn(uint16_t addr);
-// SE Vx, Byte: Skip next instruction if Vx == kk
+/**
+ * SE Vx, Byte: Skip next instruction if Vx == kk
+ */
 void chip8_execute_3xkk(int reg, int kk);
-// SNE Vx, byte: Skip next instruction if Vx != kk
+/**
+ * SNE Vx, byte: Skip next instruction if Vx != kk
+ */
 void chip8_execute_4xkk(int reg, int kk);
-// SE Vx, Vy: Skip next instruction Vx == Vy
+/**
+ * SE Vx, Vy: Skip next instruction Vx == Vy
+ */
 void chip8_execute_5xy0(int reg1, int reg2);
-// LD Vx, byte: Set Vx = kk
+/**
+ * LD Vx, byte: Set Vx = kk
+ */
 void chip8_execute_6xkk(int reg, int kk);
-// ADD Vx, byte: Set Vx = Vx + kk
+/**
+ * ADD Vx, byte: Set Vx = Vx + kk
+ */
 void chip8_execute_7xkk(int reg, int kk);
-// LD Vx, Vy: Set Vx = Vy
+/**
+ * LD Vx, Vy: Set Vx = Vy
+ */
 void chip8_execute_8xy0(int reg1, int reg2);
-// OR Vx, Vy: Set Vx = Vx OR Vy
+/**
+ * OR Vx, Vy: Set Vx = Vx OR Vy
+ */
 void chip8_execute_8xy1(int reg1, int reg2);
-// AND Vx, Vy: Set Vx = Vx AND Vy
+/**
+ * AND Vx, Vy: Set Vx = Vx AND Vy
+ */
 void chip8_execute_8xy2(int reg1, int reg2);
-// XOR Vx, Vy: Set Vx = Vx XOR Vy
+/**
+ * XOR Vx, Vy: Set Vx = Vx XOR Vy
+ */
 void chip8_execute_8xy3(int reg1, int reg2);
-// ADD Vx, Vy: Set Vx = Vx + Vy, set VF == carry
+/**
+ * ADD Vx, Vy: Set Vx = Vx + Vy, set VF == carry
+ */
 void chip8_execute_8xy4(int reg1, int reg2);
-// SUB Vx, Vy: Set Vx = Vx - Vy, set VF == !borrow
+/**
+ * SUB Vx, Vy: Set Vx = Vx - Vy, set VF == !borrow
+ */
 void chip8_execute_8xy5(int reg1, int reg2);
-// SHR Vx {, Vy}: Set Vx = Vx SHR 1, set VF == Vx & 1
+/**
+ * SHR Vx {, Vy}: Set Vx = Vx SHR 1, set VF == Vx & 1
+ */
 void chip8_execute_8xy6(int reg1, int reg2);
-// SUBN Vx Vy: Set Vx = Vy - Vx, set VF == !borrow
+/**
+ * SUBN Vx Vy: Set Vx = Vy - Vx, set VF == !borrow
+ */
 void chip8_execute_8xy7(int reg1, int reg2);
-// SHL Vx {, Vy}: Set Vx = Vx SHL 1, set VF == Vx & 8000
+/**
+ * SHL Vx {, Vy}: Set Vx = Vx SHL 1, set VF == Vx & 8000
+ */
 void chip8_execute_8xye(int reg1, int reg2);
-// SNE Vx, Vy: Skip next instruction if Vx != Vy
+/**
+ * SNE Vx, Vy: Skip next instruction if Vx != Vy
+ */
 void chip8_execute_9xy0(int reg1, int reg2);
-// LD I, addr: Set I = nnn
+/**
+ * LD I, addr: Set I = nnn
+ */
 void chip8_execute_Annn(uint16_t addr);
-// JP V0, addr: Jump to location nnn + V0
+/**
+ * JP V0, addr: Jump to location nnn + V0
+ */
 void chip8_execute_Bnnn(uint16_t addr);
-// RND Vx, byte: Set Vx = random byte & kk
+/**
+ * RND Vx, byte: Set Vx = random byte & kk
+ */
 void chip8_execute_Cxkk(int reg, int kk);
-// DRW Vx, Vy, nibble: Display n-byte sprite starting at memory location I at (Vx, Vy), set VF = collision.
+/**
+ * DRW Vx, Vy, nibble: Display n-byte sprite starting at memory location I at (Vx, Vy), set VF = collision.
+ */
 void chip8_execute_Dxyn(int reg1, int reg2, int n);
-// Skip Vx: Skip next instruction if key with the value of Vx is pressed.
+/**
+ * Skip Vx: Skip next instruction if key with the value of Vx is pressed.
+ */
 void chip8_execute_Ex9e(int reg);
-// SKNP Vx: Skip next instruction if key with the value of Vx is not pressed.
+/**
+ * SKNP Vx: Skip next instruction if key with the value of Vx is not pressed.
+ */
 void chip8_execute_Exa1(int reg);
-// LD Vx, DT: Set Vx = delay timer value.
+/**
+ * LD Vx, DT: Set Vx = delay timer value.
+ */
 void chip8_execute_Fx07(int reg);
-// LD Vx, K: Wait for a key press, store the value of the key in Vx.
+/**
+ * LD Vx, K: Wait for a key press, store the value of the key in Vx.
+ */
 void chip8_execute_Fx0a(int reg);
-// LD DT, Vx: Set delay timer = Vx.
+/**
+ * LD DT, Vx: Set delay timer = Vx.
+ */
 void chip8_execute_Fx15(int reg);
-// LD ST, Vx: Set sound timer = Vx.
+/**
+ * LD ST, Vx: Set sound timer = Vx.
+ */
 void chip8_execute_Fx18(int reg);
-// ADD I, Vx: Set I = I + Vx.
+/**
+ * ADD I, Vx: Set I = I + Vx.
+ */
 void chip8_execute_Fx1e(int reg);
-// LD F, Vx: Set I = location of sprite for digit Vx.
+/**
+ * LD F, Vx: Set I = location of sprite for digit Vx.
+ */
 void chip8_execute_Fx29(int reg);
-// LD B, Vx: Store BCD representation of Vx in memory locations I, I+1, and I+2.
+/**
+ * LD B, Vx: Store BCD representation of Vx in memory locations I, I+1, and I+2.
+ */
 void chip8_execute_Fx33(int reg);
-// LD [I], Vx: Store registers V0 through Vx in memory starting at location I.
+/**
+ * LD [I], Vx: Store registers V0 through Vx in memory starting at location I.
+ */
 void chip8_execute_Fx55(int reg);
-// LD Vx, [I]: Read registers V0 through Vx from memory starting at location I.
+/**
+ * LD Vx, [I]: Read registers V0 through Vx from memory starting at location I.
+ */
 void chip8_execute_Fx65(int reg);
 
 uint16_t chip8_fetch_opcode(uint16_t addr);
-void chip8_decode_opcode(uint16_t opcode, bool debug);
-void chip8_decode_opcode_debug(uint16_t opcode);
+/* static void chip8_decode_opcode(uint16_t opcode, bool debug); */
+/* static void chip8_decode_opcode_debug(uint16_t opcode); */
 void chip8_start_instruction_cycle();
 
 void chip8_print_insn();
