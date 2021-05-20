@@ -3,8 +3,9 @@
 #include <stdbool.h>
 
 static void usage() {
-  fprintf(stderr, "Usage: chip8 [-d] rom\n");
+  fprintf(stderr, "Usage: chip8 [-d] -f rom\n");
   fprintf(stderr, "    -d put the chip8 emulator in debug mode\n");
+  fprintf(stderr, "    -f Specify which ROM to load");
   exit(1);
 }
 int chip8_load_rom(char *path) {
@@ -25,16 +26,20 @@ int main(int argc, char *argv[]) {
   int opt;
   int rom_size;
   bool running = true;
+  char *file;
   chip8_init_memory();
   chip8_init_stack();
   chip8_init_regs();
   chip8_init_graphics();
 
-  while ((opt = getopt(argc, argv, "d")) != -1) {
+  while ((opt = getopt(argc, argv, "df:")) != -1) {
     switch (opt) {
     case 'd':
       /* print_insn(); */
       debug_mode_enabled = true;
+      break;
+    case 'f':
+      file = optarg;
       break;
 
     default: /* '?' */
@@ -42,10 +47,10 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  if (optind >= argc)
+  if (optind < argc)
     usage(); // missing rom
 
-  rom_size = chip8_load_rom(argv[optind]);
+  rom_size = chip8_load_rom(file);
   (void)rom_size;
 
   while (running) {

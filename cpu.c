@@ -372,7 +372,7 @@ static void chip8_decode_opcode(uint16_t opcode, bool debug) {
       printf("RND %d, %d\n", (opcode & 0x0F00) >> 8, opcode % 0x00FF);
     break;
   case opcode_Dxyn:
-    /* SDL_Delay(500); */
+    /* SDL_Delay(10); */
     chip8_execute_Dxyn((opcode & 0x0F00) >> 8, (opcode & 0x00F0) >> 4,
                        opcode & 0x000F);
     if (debug) {
