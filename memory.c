@@ -1,4 +1,8 @@
 #include "memory.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> // for memset
 
 uint8_t memory[MEM_SIZE];
 uint16_t stack[STACK_SIZE];

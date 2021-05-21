@@ -1,6 +1,13 @@
 #include "chip8.h"
+#include "cpu.h"
+#include "graphics.h"
+#include "memory.h"
 #include <getopt.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
 
 static void usage() {
   fprintf(stderr, "Usage: chip8 [-d] -f rom\n");

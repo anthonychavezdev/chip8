@@ -2,11 +2,6 @@
 #define CPU_H
 
 #include <stdint.h>
-#include <string.h> // for memset
-#include "memory.h"
-#include "graphics.h"
-#include <stdlib.h>
-#include <time.h>
 
 #define NUM_OF_GPRS  16 // How many general purpose registers there are.
 

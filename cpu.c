@@ -1,5 +1,12 @@
 #include "cpu.h"
+#include "graphics.h"
+#include "input.h"
+#include "memory.h"
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h> // for memset
+#include <time.h>
 
 struct cpu cpu;
 

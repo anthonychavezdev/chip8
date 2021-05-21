@@ -1,4 +1,9 @@
 #include "graphics.h"
+#include "input.h"
+#include "memory.h"
+#include <SDL2/SDL.h>
+#include <stdbool.h>
+#include <unistd.h>
 
 uint32_t display[DISPLAY_SIZE];
 uint8_t FONT_SET[] = {

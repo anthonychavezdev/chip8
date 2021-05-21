@@ -1,4 +1,5 @@
 #include "input.h"
+#include <stdbool.h>
 
 uint8_t KEYMAP[NUM_KEYS] = {
     SDLK_x, // 0

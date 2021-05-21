@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include <SDL2/SDL.h>
-#include <stdbool.h>
 // Keymap for the emulator. Comments are the orignal
 // key on the hex keypad
 #define NUM_KEYS 16

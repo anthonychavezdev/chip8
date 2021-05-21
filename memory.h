@@ -2,9 +2,6 @@
 #define MEMORY_H
 
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h> // for memset
 
 #define MEM_SIZE 0x1000 // Chip8's memory is 4096 bytes.
 #define STACK_SIZE 48
