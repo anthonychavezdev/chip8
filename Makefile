@@ -1,15 +1,15 @@
 CC = gcc
-C_COMPAT    = -Wpedantic -std=c99
-LIB_FLAGS   = -lSDL2
+C_COMPAT    = -Wpedantic -std=c11
+LD_FLAGS   = -lSDL2
 WARNINGS    = -Wall -Werror
 DEBUG_FLAGS = -g
-CFLAGS =  $(C_COMPAT) $(LIB_FLAGS) $(WARNINGS) $(DEBUG_FLAGS)
+CFLAGS =  $(C_COMPAT) $(WARNINGS) $(DEBUG_FLAGS)
 
 HEADERS = $(wildcard *.h)
 OBJECTS = $(HEADERS:%.h=%.o)
 
 chip8: chip8.o $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(LD_FLAGS) -o $@ $^
 
 ##
 # Code to check for `#include' statements.

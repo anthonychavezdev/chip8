@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 600 // Feature flag to allow nanosleep to be called
 #include "chip8.h"
 #include "cpu.h"
 #include "graphics.h"
@@ -7,7 +8,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
-#include <unistd.h>
 
 static void usage() {
   fprintf(stderr, "Usage: chip8 [-d] -f rom\n");
@@ -26,6 +26,23 @@ int chip8_load_rom(char *path) {
   fclose(rom);
 
   return rom_size;
+}
+
+// wrapper for nanosleep
+int msleep(long miliseconds) {
+  struct timespec req, rem;
+
+  if (miliseconds > 999) {
+    req.tv_sec = (int)(miliseconds / 1000); /* Must be Non-Negative */
+    req.tv_nsec = (miliseconds - ((long)req.tv_sec * 1000)) *
+                  1000000; /* Must be in range of 0 to 999999999 */
+  } else {
+    req.tv_sec = 0; /* Must be Non-Negative */
+    req.tv_nsec =
+        miliseconds * 1000000; /* Must be in range of 0 to 999999999 */
+  }
+
+  return nanosleep(&req, &rem);
 }
 
 int main(int argc, char *argv[]) {
@@ -65,9 +82,10 @@ int main(int argc, char *argv[]) {
       chip8_dump_memory(memory);
       chip8_print_insn();
     }
+    msleep(1);
     chip8_start_instruction_cycle();
-    chip8_update_timers();
     chip8_manage_events(&running);
+    chip8_update_timers();
   }
 
   chip8_destory_graphics();

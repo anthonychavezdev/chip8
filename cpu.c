@@ -253,6 +253,11 @@ static void chip8_decode_opcode(uint16_t opcode, bool debug) {
       if (debug)
         printf("RET\n");
       break;
+    default:
+      printf("Unknown Instruction.\n");
+      printf("opcode: %x, pc: %x", opcode, cpu.pc);
+      exit(1);
+      break;
     }
     break;
   case opcode_1nnn:
