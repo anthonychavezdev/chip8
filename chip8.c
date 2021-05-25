@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <time.h>
 
-static void usage() {
+void usage() {
   fprintf(stderr, "Usage: chip8 [-d] -f rom\n");
   fprintf(stderr, "    -d put the chip8 emulator in debug mode\n");
   fprintf(stderr, "    -f Specify which ROM to load");
@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     if (debug_mode_enabled) {
+      msleep(1);
       chip8_dump_memory(memory);
       chip8_print_insn();
     }
