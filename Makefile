@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 C_COMPAT    = -Wpedantic -std=c11
 LD_FLAGS   = -lSDL2
 WARNINGS    = -Wall -Werror
