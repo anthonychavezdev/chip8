@@ -152,7 +152,7 @@ void chip8_execute_Dxyn(int reg1, int reg2, int n) {
         }
         display[x + col + ((y + row) * 64)] ^= 1;
       } else {
-        display[x + col + ((y + row) * 64)] = 0;
+        display[x + col + ((y + row) * 64)] ^= 0;
       }
     }
   }
@@ -252,11 +252,6 @@ static void chip8_decode_opcode(uint16_t opcode, bool debug) {
       chip8_execute_00EE();
       if (debug)
         printf("RET\n");
-      break;
-    default:
-      printf("Unknown Instruction.\n");
-      printf("opcode: %x, pc: %x", opcode, cpu.pc);
-      exit(1);
       break;
     }
     break;
