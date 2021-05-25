@@ -176,9 +176,15 @@ void chip8_execute_Fx07(int reg) {
 }
 
 void chip8_execute_Fx0a(int reg) {
+  key_pressed = false;
   for (int i = 0; i < NUM_KEYS; i++)
-    if (keys[i] == true)
+    if (keys[i] == true) {
       cpu.V[reg] = keys[i];
+      key_pressed = true;
+    }
+
+  if (!key_pressed)
+    return;
 
   cpu.pc += 2;
 }

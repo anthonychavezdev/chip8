@@ -20,7 +20,7 @@ uint8_t KEYMAP[NUM_KEYS] = {
     SDLK_v  // F
 };
 uint8_t keys[NUM_KEYS] = {0};
-
+bool key_pressed = false;
 void chip8_process_input(SDL_Event *e) {
   switch (e->type) {
   case SDL_KEYDOWN:
