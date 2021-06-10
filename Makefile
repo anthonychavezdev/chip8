@@ -7,9 +7,14 @@ CFLAGS =  $(C_COMPAT) $(WARNINGS) $(DEBUG_FLAGS)
 
 HEADERS = $(wildcard *.h)
 OBJECTS = $(HEADERS:%.h=%.o)
+CODE    = $(wildcard *.c)
 
+all: chip8
 chip8: chip8.o $(OBJECTS)
 	$(CC) $(CFLAGS) $(LD_FLAGS) -o $@ $^
+
+clean:
+	rm -rf *.o chip8
 
 ##
 # Code to check for `#include' statements.
@@ -26,5 +31,22 @@ $(DEPDIR)/%.d: %.c | $(DEPDIR)
 DEPFILES := $(OBJECTS:%.o=$(DEPDIR)/%.d)
 include $(DEPFILES)
 
-clean:
-	rm -rf *.o chip8
+
+##
+# Find TODO tags and display them at the top of the output for convenience
+##
+.PHONY: TODO
+all: TODO
+COLOR = always
+# TODO: Better sort on line numbers.
+TODO:
+	@if grep --color=$(COLOR) -n "\(TODO\|FIXME|MAINTENANCE\)" $(HEADERS) $(CODE) > /dev/null; then \
+	echo "+---------------------------- - - -  -   --    ---"; \
+	echo "| List of TODO in code:"; \
+	echo "|"; \
+	grep --color=$(COLOR) -n "\(TODO\|FIXME\)" $(HEADERS) $(CODE) |sort |sed 's,\(.\),| - \1,' | sed 's,\s*//\s*,\t,' || true; \
+	grep --color=$(COLOR) -n "MAINTENANCE" $(HEADERS) $(CODE) |sort |sed 's,\(.\),| - \1,' | sed 's,\s*//\s*,\t,' || true; \
+	echo "+---------------------------- - - -  -   --    ---"; \
+	echo ""; \
+	fi
+
