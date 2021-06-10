@@ -55,4 +55,11 @@ TODO:
 .PHONY: include_graph
 tests: include_graph
 include_graph:
-	@./.tools/doodle_includes.sh
+	@if which graph-easy > /dev/null 2>&1; then \
+		./.tools/cinclude2dot.pl 2>&1 | \
+		grep -v "^Include file not found: <[^ ]*>" | \
+		graph-easy; \
+	else \
+		echo "Please install graph library by running:"; \
+		echo "$ cpan Graph::Easy"; \
+	fi
