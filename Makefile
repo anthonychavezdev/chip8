@@ -31,12 +31,14 @@ $(DEPDIR)/%.d: %.c | $(DEPDIR)
 DEPFILES := $(OBJECTS:%.o=$(DEPDIR)/%.d)
 include $(DEPFILES)
 
+.PHONY:tests
+all:tests
 
 ##
 # Find TODO tags and display them at the top of the output for convenience
 ##
 .PHONY: TODO
-all: TODO
+tests: TODO
 COLOR = always
 # TODO: Better sort on line numbers.
 TODO:
@@ -50,3 +52,7 @@ TODO:
 	echo ""; \
 	fi
 
+.PHONY: include_graph
+tests: include_graph
+include_graph:
+	@./.tools/doodle_includes.sh
