@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     if (debug_mode_enabled) {
-      msleep(1);
+      msleep(2);
       chip8_dump_memory(memory);
       chip8_print_insn();
     }
