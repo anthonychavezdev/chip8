@@ -52,8 +52,8 @@ TODO:
 	echo ""; \
 	fi
 
-.PHONY: include_graph
-tests: include_graph
+# .PHONY: include_graph
+# tests: include_graph
 include_graph:
 	@if which graph-easy > /dev/null 2>&1; then \
 		./.tools/cinclude2dot.pl 2>&1 | \
