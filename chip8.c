@@ -7,19 +7,22 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 
 void usage() {
   fprintf(stderr, "Usage: chip8 [-d] -f rom\n");
   fprintf(stderr, "    -d put the chip8 emulator in debug mode\n");
-  fprintf(stderr, "    -f Specify which ROM to load");
+  fprintf(stderr, "    -f Specify which ROM to load\n");
+  fprintf(stderr,
+          "    -s Set the emulator speed in miliseconds. (Default is 1)\n");
   exit(1);
 }
 int chip8_load_rom(char *path) {
   FILE *rom;
   rom = fopen(path, "rb");
   if (rom == NULL) {
-    fprintf(stderr, "Unable to open rom: %s", path);
+    fprintf(stderr, "Unable to open rom: %s\n", path);
     exit(1);
   }
   int rom_size = fread(&memory[0x200], 1, MAX_ROM_SIZE, rom);
@@ -49,6 +52,7 @@ int main(int argc, char *argv[]) {
   bool debug_mode_enabled = false;
   int opt;
   int rom_size;
+  int miliseconds = 1;
   bool running = true;
   char *file;
   chip8_init_memory();
@@ -56,7 +60,7 @@ int main(int argc, char *argv[]) {
   chip8_init_regs();
   chip8_init_graphics();
 
-  while ((opt = getopt(argc, argv, "df:")) != -1) {
+  while ((opt = getopt(argc, argv, "df:s:")) != -1) {
     switch (opt) {
     case 'd':
       /* print_insn(); */
@@ -64,6 +68,9 @@ int main(int argc, char *argv[]) {
       break;
     case 'f':
       file = optarg;
+      break;
+    case 's':
+      miliseconds = atoi(optarg);
       break;
 
     default: /* '?' */
@@ -79,11 +86,11 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     if (debug_mode_enabled) {
-      msleep(2);
+      msleep(miliseconds);
       chip8_dump_memory(memory);
       chip8_print_insn();
     }
-    msleep(1);
+    msleep(miliseconds);
     chip8_start_instruction_cycle();
     chip8_manage_events(&running);
     chip8_update_timers();
