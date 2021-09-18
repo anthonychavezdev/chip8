@@ -19,17 +19,17 @@ clean:
 ##
 # Code to check for `#include' statements.
 ##
-DEPDIR := .dep
-$(DEPDIR): ; mkdir $@
-.PRECIOUS: $(DEPDIR)/%.d
-$(DEPDIR)/%.d: %.c | $(DEPDIR)
-	@set -e; rm -f $@; \
-	$(CC) -MM $(CXXFLAGS) $< -MF $@.$$$$; \
-	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
-%.o: .dep/%.d
-DEPFILES := $(OBJECTS:%.o=$(DEPDIR)/%.d)
-include $(DEPFILES)
+# DEPDIR := .dep
+# $(DEPDIR): ; mkdir $@
+# .PRECIOUS: $(DEPDIR)/%.d
+# $(DEPDIR)/%.d: %.c | $(DEPDIR)
+# 	@set -e; rm -f $@; \
+# 	$(CC) -MM $(CXXFLAGS) $< -MF $@.$$$$; \
+# 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+# 	rm -f $@.$$$$
+# %.o: .dep/%.d
+# DEPFILES := $(OBJECTS:%.o=$(DEPDIR)/%.d)
+# include $(DEPFILES)
 
 .PHONY:tests
 all:tests
