@@ -18,6 +18,3 @@ You'll need to install the SDL2 development libraries.
 ## Ubuntu and Debian
 ```sudo apt install libsdl2-dev make clang```
 ```make```
-
-## Windows
-https://www.google.com/search?hl=en&q=windows%20how%20to%20install%20sdl2%20dev%20libraries
